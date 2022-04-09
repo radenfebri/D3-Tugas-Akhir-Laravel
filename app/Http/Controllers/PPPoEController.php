@@ -213,7 +213,6 @@ class PPPoEController extends Controller
 			$secretactive = $API->comm('/ppp/active/print');
 
 			$data = [
-				'menu' => 'PPPoE',
 				'totalsecretactive' => count($secretactive),
 				'active' => $secretactive,
 			];

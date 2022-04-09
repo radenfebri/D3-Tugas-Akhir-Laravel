@@ -56,8 +56,8 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="">
-                                    <span class="sub-item">Hotspot Users Active</span>
+                                <a href="{{ route('hotspot.active') }}">
+                                    <span class="sub-item {{ $submenu == 'u-active' ? 'active' : ''  }}">Hotspot Users Active</span>
                                 </a>
                             </li>
                         </ul>

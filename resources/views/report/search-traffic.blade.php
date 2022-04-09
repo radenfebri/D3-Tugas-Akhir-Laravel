@@ -42,7 +42,7 @@
                                                 <td><button type="submit" class="btn btn-primary">Search</button></td>
                                             </div>
                                             <div class="form-group">
-                                                <td><button type="reset" class="btn btn-primary">Reset</button></td>
+                                                <td><a href="{{ route('search.report') }}" type="reset" value="reset" class="btn btn-danger">Reset</a></td>
                                             </div>
                                         </form>
                                     </tr>

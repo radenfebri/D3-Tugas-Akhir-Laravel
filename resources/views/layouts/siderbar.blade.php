@@ -14,8 +14,8 @@
                     </span>
                     <h4 class="text-section">Components</h4>
                 </li>
-                <li class="nav-item ">
-                    <a href="">
+                <li class="nav-item {{ $menu == 'interface' ? 'active' : ''  }}">
+                    <a href="{{ route('interface.index') }}">
                         <i class="fas fa-layer-group"></i>
                         <p>Interface</p>
                     </a>

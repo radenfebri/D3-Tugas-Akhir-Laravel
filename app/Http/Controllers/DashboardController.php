@@ -11,10 +11,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // $this->load->model('Report_model');
-        // $this->load->database();
-        // $report['data'] = $this->Report_model->getAllReport();
-
         $ip = session()->get('ip');
         $user = session()->get('user');
         $password = session()->get('password');
@@ -34,7 +30,6 @@ class DashboardController extends Controller
 
 
             $data = [
-                'menu' => 'Dashboard',
                 'totalsecret' => count($secret),
                 'totalhotspot' => count($hotspotactive),
                 'hotspotactive' => count($hotspotactive),
@@ -49,6 +44,8 @@ class DashboardController extends Controller
                 'model' => $routerboard[0]['model'],
                 'identity' => $identity[0]['name'],
             ];
+
+            // dd($data);
 
             return view('dashboard', $data);
 

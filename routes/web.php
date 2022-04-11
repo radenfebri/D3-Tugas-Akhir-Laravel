@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HotspotController;
+use App\Http\Controllers\InterfaceController;
 use App\Http\Controllers\PPPoEController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UseractiveController;
@@ -35,6 +36,9 @@ Route::get('auth/logout', [AuthController::class, 'logout'])->name('auth.logout'
 
 // Dashboard
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+// Check Traffic Interface
+Route::get('interface', [InterfaceController::class, 'index'])->name('interface.index');
 
 // Fitur PPPoE
 Route::get('pppoe/secret', [PPPoEController::class, 'secret'])->name('pppoe.secret');

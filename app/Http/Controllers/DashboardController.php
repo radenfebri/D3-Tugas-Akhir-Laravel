@@ -17,15 +17,17 @@ class DashboardController extends Controller
         $API = new RouterosAPI();
         $API->debug = false;
 
-        if($API->connect( $ip, $user, $password)){
+        if ($API->connect($ip, $user, $password)) {
 
             $hotspotactive = $API->comm('/ip/hotspot/active/print');
             $resource = $API->comm('/system/resource/print');
             $secret = $API->comm('/ppp/secret/print');
             $secretactive = $API->comm('/ppp/active/print');
-            $interface = $API->comm('/interface/print');
+            $interface = $API->comm('/interface/ethernet/print');
             $routerboard = $API->comm('/system/routerboard/print');
             $identity = $API->comm('/system/identity/print');
+
+            dd($interface);
 
 
 
@@ -48,8 +50,7 @@ class DashboardController extends Controller
             // dd($data);
 
             return view('dashboard', $data);
-
-        }else{
+        } else {
 
             return redirect('failed');
         }
@@ -74,7 +75,6 @@ class DashboardController extends Controller
             ];
 
             return view('realtime.cpu', $data);
-
         } else {
 
             return view('failed');
@@ -100,7 +100,6 @@ class DashboardController extends Controller
             ];
 
             return view('realtime.uptime', $data);
-
         } else {
 
             return view('failed');
@@ -135,7 +134,6 @@ class DashboardController extends Controller
             // dd($data);
 
             return view('realtime.traffic', $data);
-
         } else {
 
             return view('failed');
@@ -146,13 +144,10 @@ class DashboardController extends Controller
 
     public function load()
     {
-        $data = Report::orderBy('created_at','desc')->limit('2')->get();
+        $data = Report::orderBy('created_at', 'desc')->limit('2')->get();
 
         return view('realtime.load', compact('data'));
     }
-
 }
 
 error_reporting(0);
-
-

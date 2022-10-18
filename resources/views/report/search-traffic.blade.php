@@ -76,7 +76,7 @@
                                     <tr>
                                         <td>{{ $no+1 }}</td>
                                         <td>{{ $row['text'] }}</td>
-                                        <td>{{ date("d F Y, h:i A", strtotime($row['created_at'])) }}</td>
+                                        <td>{{ date("d F Y, h:i A", strtotime($row['time'])) }}</td>
                                         <td>{{ $row['id'] }}</td>
                                     </tr>
                                     @endforeach

@@ -8,7 +8,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PPPoEController extends Controller
 {
-    public function secret()
+	public function secret()
 	{
 		$ip = session()->get('ip');
 		$user = session()->get('user');
@@ -28,14 +28,11 @@ class PPPoEController extends Controller
 				'profile' => $profile,
 			];
 
-            // dd($data);
-            return view('pppoe.secret', $data);
+			return view('pppoe.secret', $data);
+		} else {
 
-		}else{
-
-            return redirect('failed');
+			return redirect('failed');
 		}
-
 	}
 
 
@@ -50,34 +47,43 @@ class PPPoEController extends Controller
 
 		if ($API->connect($ip, $user, $password)) {
 
-			if($request['localaddress'] == '') {
-				$localaddress = '0.0.0.0';
-			} else {
-				$localaddress = $request['localaddress'];
-			}
+			// if ($request['localaddress'] == '') {
+			// 	$localaddress = '0.0.0.0';
+			// } else {
+			// 	$localaddress = $request['localaddress'];
+			// }
 
-			if($request['remoteaddress'] == '') {
-				$remoteaddress = '0.0.0.0';
-			} else {
-				$remoteaddress = $request['remoteaddress'];
-			}
+			// if ($request['remoteaddress'] == '') {
+			// 	$remoteaddress = '0.0.0.0';
+			// } else {
+			// 	$remoteaddress = $request['remoteaddress'];
+			// }
 
 			$API->comm('/ppp/secret/add', array(
+				// 'name' => $request['user'],
+				// 'password' => $request['password'],
+				// 'service' => $request['service'],
+				// 'profile' => $request['profile'],
+				// 'local-address' => $localaddress,
+				// 'remote-address' => $remoteaddress,
+				// 'comment' => $request['comment'],
 				'name' => $request['user'],
 				'password' => $request['password'],
-				'service' => $request['service'],
-				'profile' => $request['profile'],
-				'local-address' => $localaddress,
-				'remote-address' => $remoteaddress,
-				'comment' => $request['comment'],
+				'service' => $request['service'] == '' ? 'any' : 'any',
+				'profile' => $request['profile'] == '' ? 'default' : 'default',
+				'disabled' => $request['disabled'] == '' ? 'true' : 'true',
+				'local-address' => $request['localaddress'] == '' ? '0.0.0.0' : '0.0.0.0',
+				'remote-address' => $request['remoteaddress'] == '' ? '0.0.0.0' : '0.0.0.0',
+				'comment' => $request['comment'] == '' ? '' : '',
 			));
 
-            Alert::success('Success', 'Selamat anda Berhasil menambhakan secret PPPoE');
+			// dd($request->all());
+
+			Alert::success('Success', 'Selamat anda Berhasil menambhakan secret PPPoE');
 			return redirect('pppoe/secret');
+		} else {
 
-		}else{
-
-            return redirect('failed');
+			return redirect('failed');
 		}
 	}
 
@@ -103,13 +109,12 @@ class PPPoEController extends Controller
 			$data = [
 				'user' => $getuser[0],
 				'secret' => $secret,
-                'profile' => $profile,
+				'profile' => $profile,
 			];
 
-            // dd($data);
+			// dd($data);
 
-            return view('pppoe.edit', $data);
-
+			return view('pppoe.edit', $data);
 		} else {
 
 			return redirect('failed');
@@ -118,16 +123,9 @@ class PPPoEController extends Controller
 
 
 
-    public function update(Request $request)
+	public function update(Request $request)
 	{
-        if ($request(null, true)) {
-            session()->post()->save();
-        } else {
 
-        }
-
-
-		// $request = $this->input->post(null, true);
 		$ip = session()->get('ip');
 		$user = session()->get('user');
 		$password = session()->get('password');
@@ -136,45 +134,24 @@ class PPPoEController extends Controller
 
 		$API->connect($ip, $user, $password);
 
-		// PENGECUALIAN
-		if($request['localaddress'] == '') {
-			$localaddress = '0.0.0.0';
-		} else {
-			$localaddress = $request['localaddress'];
-		}
-
-		if($request['remoteaddress'] == '') {
-			$remoteaddress = '0.0.0.0';
-		} else {
-			$remoteaddress = $request['remoteaddress'];
-		}
-
-        if($request['disabled'] == '') {
-			$disabled = 'false';
-		} else {
-			$disabled = $request['disabled'];
-		}
-
 		$API->comm("/ppp/secret/set", array(
 			".id" => $request['id'],
-			'name' => $request['user'],
-			'password' => $request['password'],
-			'service' => $request['service'],
-			'profile' => $request['profile'],
-			'disabled' => $request['disabled'],
-			'disabled' => $disabled,
-			'local-address' => $localaddress,
-			'remote-address' => $remoteaddress,
-			'comment' => $request['comment'],
+			'name' => $request['user'] == '' ? $request['user'] : $request['user'],
+			'password' => $request['password'] == '' ? $request['password'] : $request['password'],
+			'service' => $request['service'] == '' ? $request['service'] : $request['service'],
+			'profile' => $request['profile'] == '' ? $request['profile'] : $request['profile'],
+			'disabled' => $request['disabled'] == '' ? $request['disabled'] : $request['disabled'],
+			'local-address' => $request['localaddress'] == '' ? $request['localaddress'] : $request['localaddress'],
+			'remote-address' => $request['remoteaddress'] == '' ? $request['remoteaddress'] : $request['remoteaddress'],
+			'comment' => $request['comment'] == '' ? $request['comment'] : $request['comment'],
 		));
 
-        Alert::success('Success', 'Selamat anda Berhasil mengupdate secret PPPoE');
-		return redirect('pppoe/secret');
+
+		Alert::success('Success', 'Selamat anda Berhasil mengupdate secret PPPoE');
+		return redirect()->route('pppoe.secret');
 	}
 
-
-
-    public function delete($id)
+	public function delete($id)
 	{
 		$ip = session()->get('ip');
 		$user = session()->get('user');
@@ -188,19 +165,17 @@ class PPPoEController extends Controller
 				'.id' => '*' . $id
 			),);
 
-            Alert::success('Success', 'Selamat anda Berhasil menghapus secret PPPoE');
+			Alert::success('Success', 'Selamat anda Berhasil menghapus secret PPPoE');
 			return redirect('pppoe/secret');
+		} else {
 
-		}else{
-
-            return redirect('failed');
+			return redirect('failed');
 		}
-
 	}
 
 
 
-    public function active()
+	public function active()
 	{
 		$ip = session()->get('ip');
 		$user = session()->get('user');
@@ -217,15 +192,12 @@ class PPPoEController extends Controller
 				'active' => $secretactive,
 			];
 
-            return view('pppoe.active', $data);
+			return view('pppoe.active', $data);
+		} else {
 
-		}else{
-
-            return redirect('failed');
+			return redirect('failed');
 		}
 	}
 }
 
-error_reporting(0);
-
-
+// error_reporting(0);

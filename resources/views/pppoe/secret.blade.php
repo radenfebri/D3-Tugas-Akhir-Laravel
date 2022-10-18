@@ -69,7 +69,7 @@
                                                     <div class="col-md-6 pr-0">
                                                         <div class="form-group form-group-default">
                                                             <label>Service</label>
-                                                            <select name="service" id="service" class="form-control" required>
+                                                            <select name="service" id="service" class="form-control">
                                                                 <option value="" selected disabled>Pilih</option>
                                                                 <option value="any">ANY</option>
                                                                 <option value="async">ASYNC</option>
@@ -84,7 +84,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group form-group-default">
                                                             <label>Profile</label>
-                                                            <select name="profile" id="profile" class="form-control" placeholder="Profile" required>
+                                                            <select name="profile" id="profile" class="form-control" placeholder="Profile">
                                                                 <option disabled selected value="">Pilih</option>
                                                                     @foreach ($profile as $data)
                                                                         <option>{{ $data['name'] }}</option>
@@ -157,11 +157,11 @@
                                         <tr>
                                             <div hidden>{{ $id = str_replace('*', '', $data['.id']) }}</div>
                                             <td>{{ $no+1 }} </td>
-                                            <td>{{ $data['name'] }} </td>
-                                            <td>{{ $data['password'] }} </td>
-                                            <td>{{ $data['service'] }} </td>
-                                            <td>{{ $data['local-address'] }} </td>
-                                            <td>{{ $data['remote-address'] }} </td>
+                                            <td>{{ $data['name'] ?? '' }} </td>
+                                            <td>{{ $data['password'] ?? '' }} </td>
+                                            <td>{{ $data['service'] ?? '' }} </td>
+                                            <td>{{ $data['local-address'] ?? '' }} </td>
+                                            <td>{{ $data['remote-address'] ?? '' }} </td>
                                             <td>
                                                 @if ($data['disabled'] == "true")
                                                 Disable
@@ -169,10 +169,10 @@
                                                 Enable
                                                 @endif
                                             </td>
-                                            <td>{{ $data['comment'] }} </td>
+                                            <td>{{ $data['comment'] ?? '' }} </td>
                                             <td>
                                                 <div class="form-button-action">
-                                                    <a href="{{ route('pppoe.edit', $id ) }}" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                                    <a href="{{ route('pppoe.edit', $id ) }}" class="btn btn-link btn-primary btn-lg" data-toggle="tooltip" data-original-title="Edit Task">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
 

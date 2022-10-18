@@ -210,12 +210,10 @@
                             <label for="defaultSelect">Select Interface</label>
                             <select class="form-control form-control" name="interface" id="interface">
                                 @foreach ($interface as $data)
-                                    <div hidden>{{ $id = str_replace('*', '', $data['.id']) }}</div>
                                     <option value="{{ $data['name'] }}">{{ $data['name'] }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div id="hasil-output"></div>
                         <div class="form-group" id="traffic"></div>
                     </div>
                 </div>
@@ -237,14 +235,10 @@
 
     setInterval('traffic();',1000);
     function traffic() {
-        var interface = $('#interface').val() ;
-        $('#traffic').load('{{ url('dashboard/traffic/"hasil-output" ')}}');
-    	console.log(interface);
+        $('#traffic').load('{{ url('dashboard/traffic/interface') }} ')
+        // console.log(interface);
+        // $('#traffic').load('{{ route('dashboard.traffic', $interface = $data['name'] ) }} ')
 
-        var hasil = document.getElementById("hasil-output");
-        hasil.innerHTML = interface;
-
-        var hasil = document.getElementById(interface);
     }
 
     setInterval('cpu();',1000);

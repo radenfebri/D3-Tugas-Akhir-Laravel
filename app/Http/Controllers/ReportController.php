@@ -22,7 +22,7 @@ class ReportController extends Controller
         $tgl_awal = $request->tgl_awal;
         $tgl_akhir = $request->tgl_akhir;
 
-        $data = Report::orderBy('created_at','desc')->where('created_at','>=',$tgl_awal. ' 00:00:00')->where('created_at','<=',$tgl_akhir. '23:59:59')->get();
+        $data = Report::orderBy('time','desc')->where('time','>=',$tgl_awal. ' 00:00:00')->where('time','<=',$tgl_akhir. '23:59:59')->get();
 
         $view_tgl = "List data Mulai tanggal: $tgl_awal, Sampai tanggal: $tgl_akhir";
 
@@ -33,7 +33,7 @@ class ReportController extends Controller
 
     public function load()
     {
-        $data = Report::orderBy('created_at','desc')->limit('20')->get();
+        $data = Report::orderBy('time','desc')->limit('20')->get();
 
         return view('realtime.load', compact('data'));
     }

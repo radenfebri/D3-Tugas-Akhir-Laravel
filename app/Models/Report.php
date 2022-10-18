@@ -9,7 +9,7 @@ class Report extends Model
 {
     use HasFactory;
 
-    protected $table = 'reports';
+    protected $table = 'data';
 
     protected $fillable = ['text'];
 

@@ -60,7 +60,7 @@ Route::get('hotspot/users/delete/{id}', [HotspotController::class, 'delete'])->n
 Route::get('dashboard/cpu', [DashboardController::class, 'cpu'])->name('dashboard.cpu');
 Route::get('dashboard/load', [DashboardController::class, 'load'])->name('dashboard.load');
 Route::get('dashboard/uptime', [DashboardController::class, 'uptime'])->name('dashboard.uptime');
-Route::get('dashboard/traffic/{interface}', [DashboardController::class, 'traffic'])->name('dashboard.traffic');
+Route::get('dashboard/{traffic}', [DashboardController::class, 'traffic'])->name('dashboard.traffic');
 
 // Report Traffic UP & Search
 Route::get('report-up', [ReportController::class, 'index'])->name('report-up.index');
@@ -74,6 +74,3 @@ Route::get('realtime/useractive', [UseractiveController::class, 'useractive'])->
 // Store Data Up & Down
 Route::get('/up', [ReportController::class, 'up']);
 Route::get('/down', [ReportController::class, 'down']);
-
-
-

@@ -29,11 +29,21 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="ip" class="sr-only">Ip Address</label>
-                                    <input type="text" name="ip" id="ip" class="form-control" required placeholder="IP address">
+                                    <input type="text" name="ip" id="ip" class="form-control @error ('user') is-invalid @enderror" value="{{ old('ip') }}" placeholder="IP address">
+                                    @error('ip')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="user" class="sr-only">User</label>
-                                    <input type="text" name="user" id="user" class="form-control" required placeholder="User Router">
+                                    <input type="text" name="user" id="user" class="form-control  @error ('user') is-invalid @enderror" value="{{ old('user') }}" placeholder="User Router">
+                                    @error('user')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="password" class="sr-only">Password</label>

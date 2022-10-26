@@ -27,9 +27,6 @@ class DashboardController extends Controller
             $routerboard = $API->comm('/system/routerboard/print');
             $identity = $API->comm('/system/identity/print');
 
-            dd($interface);
-
-
 
             $data = [
                 'totalsecret' => count($secret),
@@ -47,7 +44,6 @@ class DashboardController extends Controller
                 'identity' => $identity[0]['name'],
             ];
 
-            // dd($data);
 
             return view('dashboard', $data);
         } else {
@@ -109,7 +105,7 @@ class DashboardController extends Controller
 
 
 
-    public function traffic($interface)
+    public function traffic($traffic)
     {
         $ip = session()->get('ip');
         $user = session()->get('user');
@@ -118,13 +114,13 @@ class DashboardController extends Controller
         $API->debug = false;
 
         if ($API->connect($ip, $user, $password)) {
-            $interface = $API->comm('/interface/monitor-traffic', array(
-                'interface' => $interface,
+            $traffic = $API->comm('/interface/monitor-traffic', array(
+                'interface' => $traffic,
                 'once' => '',
             ));
 
-            $rx = $interface[0]['rx-bits-per-second'];
-            $tx = $interface[0]['tx-bits-per-second'];
+            $rx = $traffic[0]['rx-bits-per-second'];
+            $tx = $traffic[0]['tx-bits-per-second'];
 
             $data = [
                 'rx' => $rx,

@@ -8,7 +8,7 @@
 	<tbody>
         @foreach ($data as $item)
             <tr>
-                <td>{{ $item['text'] }}</td>
+                <td>{!! $item['text'] !!}</td>
                 <td>{{ date("d F Y, h:i A", strtotime($item['time'])) }}</td>
             </tr>
         @endforeach

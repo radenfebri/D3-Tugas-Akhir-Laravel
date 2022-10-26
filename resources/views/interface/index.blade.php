@@ -68,9 +68,9 @@
 
     function requestDatta(interface) {
         var interface = $('#interface').val()
-        var newStr = interface.replace(/%20/g, " ");
+        var traffic = interface.replace(/%20/g, " ");
         $.ajax({
-            url: '{{ url('interface/traffic/') }}' + newStr,
+            url: '{{ url('dashboard') }} + '/' + traffic',
             datatype: "json",
             success: function(data) {
                 var midata = JSON.parse(data);

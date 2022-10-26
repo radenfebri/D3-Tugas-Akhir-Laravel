@@ -43,7 +43,7 @@ class ReportController extends Controller
     public function up(){
 
         $post = new Report();
-        $post->text = 'Traffic Internet Melebihi Dari 50 Mbps';
+        $post->text = '<font color=`ff0000`>Traffic Internet Melebihi Dari 50 Mbps</font>';
         $post->save();
 
         return response()->json($post, 200);

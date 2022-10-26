@@ -75,7 +75,7 @@
                                     @foreach ($data as $no => $row)
                                     <tr>
                                         <td>{{ $no+1 }}</td>
-                                        <td>{{ $row['text'] }}</td>
+                                        <td>{!! $row['text'] !!}</td>
                                         <td>{{ date("d F Y, h:i A", strtotime($row['time'])) }}</td>
                                         <td>{{ $row['id'] }}</td>
                                     </tr>

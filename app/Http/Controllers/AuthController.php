@@ -11,8 +11,14 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    
     public function login(Request $request)
     {
+        $request->validate([
+            'ip' => 'required',
+            'user' => 'required'
+        ]);
+
         $ip = $request->post('ip');
         $user = $request->post('user');
         $password = $request->post('password');
@@ -29,11 +35,11 @@ class AuthController extends Controller
     }
 
 
-    public function logout()
+    public function logout(Request $request)
     {
-        session()->forget('ip');
-        session()->forget('user');
-        session()->forget('password');
+        $request->session()->forget('ip');
+        $request->session()->forget('user');
+        $request->session()->forget('password');
 
         return redirect('login');
     }

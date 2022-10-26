@@ -235,10 +235,10 @@
 
     setInterval('traffic();',1000);
     function traffic() {
-        $('#traffic').load('{{ url('dashboard/traffic/interface') }} ')
-        // console.log(interface);
-        // $('#traffic').load('{{ route('dashboard.traffic', $interface = $data['name'] ) }} ')
-
+        var traffic = $('#interface').val() ;
+        var url = '{{ route("dashboard.traffic", ":traffic") }}';
+        // console.log(traffic);
+        $('#traffic').load(url.replace(':traffic', traffic));
     }
 
     setInterval('cpu();',1000);

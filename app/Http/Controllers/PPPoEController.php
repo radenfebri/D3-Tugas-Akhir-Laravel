@@ -47,26 +47,7 @@ class PPPoEController extends Controller
 
 		if ($API->connect($ip, $user, $password)) {
 
-			// if ($request['localaddress'] == '') {
-			// 	$localaddress = '0.0.0.0';
-			// } else {
-			// 	$localaddress = $request['localaddress'];
-			// }
-
-			// if ($request['remoteaddress'] == '') {
-			// 	$remoteaddress = '0.0.0.0';
-			// } else {
-			// 	$remoteaddress = $request['remoteaddress'];
-			// }
-
 			$API->comm('/ppp/secret/add', array(
-				// 'name' => $request['user'],
-				// 'password' => $request['password'],
-				// 'service' => $request['service'],
-				// 'profile' => $request['profile'],
-				// 'local-address' => $localaddress,
-				// 'remote-address' => $remoteaddress,
-				// 'comment' => $request['comment'],
 				'name' => $request['user'],
 				'password' => $request['password'],
 				'service' => $request['service'] == '' ? 'any' : 'any',

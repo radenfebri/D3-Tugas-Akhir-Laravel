@@ -28,6 +28,7 @@ class PPPoEController extends Controller
 				'profile' => $profile,
 			];
 
+			// dd($data);
 			return view('pppoe.secret', $data);
 		} else {
 
@@ -47,16 +48,15 @@ class PPPoEController extends Controller
 
 		if ($API->connect($ip, $user, $password)) {
 
-			$API->comm('/ppp/secret/add', array(
+			$API->comm('/ppp/secret/add', [
 				'name' => $request['user'],
 				'password' => $request['password'],
-				'service' => $request['service'] == '' ? 'any' : 'any',
-				'profile' => $request['profile'] == '' ? 'default' : 'default',
-				'disabled' => $request['disabled'] == '' ? 'true' : 'true',
-				'local-address' => $request['localaddress'] == '' ? '0.0.0.0' : '0.0.0.0',
-				'remote-address' => $request['remoteaddress'] == '' ? '0.0.0.0' : '0.0.0.0',
-				'comment' => $request['comment'] == '' ? '' : '',
-			));
+				'service' => $request['service'] == '' ? 'any' : $request['service'],
+				'profile' => $request['profile'] == '' ? 'default' : $request['profile'],
+				'local-address' => $request['localaddress'] == '' ? '0.0.0.0' : $request['localaddress'],
+				'remote-address' => $request['remoteaddress'] == '' ? '0.0.0.0' : $request['remoteaddress'],
+				'comment' => $request['comment'] == '' ? '' : $request['comment'],
+			]);
 
 			// dd($request->all());
 
@@ -80,9 +80,9 @@ class PPPoEController extends Controller
 
 		if ($API->connect($ip, $user, $password)) {
 
-			$getuser = $API->comm('/ppp/secret/print', array(
+			$getuser = $API->comm('/ppp/secret/print', [
 				"?.id" => '*' . $id,
-			));
+			]);
 
 			$secret = $API->comm('/ppp/secret/print');
 			$profile = $API->comm('/ppp/profile/print');
@@ -115,7 +115,7 @@ class PPPoEController extends Controller
 
 		$API->connect($ip, $user, $password);
 
-		$API->comm("/ppp/secret/set", array(
+		$API->comm("/ppp/secret/set", [
 			".id" => $request['id'],
 			'name' => $request['user'] == '' ? $request['user'] : $request['user'],
 			'password' => $request['password'] == '' ? $request['password'] : $request['password'],
@@ -125,7 +125,7 @@ class PPPoEController extends Controller
 			'local-address' => $request['localaddress'] == '' ? $request['localaddress'] : $request['localaddress'],
 			'remote-address' => $request['remoteaddress'] == '' ? $request['remoteaddress'] : $request['remoteaddress'],
 			'comment' => $request['comment'] == '' ? $request['comment'] : $request['comment'],
-		));
+		]);
 
 
 		Alert::success('Success', 'Selamat anda Berhasil mengupdate secret PPPoE');
@@ -142,9 +142,9 @@ class PPPoEController extends Controller
 
 		if ($API->connect($ip, $user, $password)) {
 
-			$API->comm('/ppp/secret/remove', array(
+			$API->comm('/ppp/secret/remove', [
 				'.id' => '*' . $id
-			),);
+			],);
 
 			Alert::success('Success', 'Selamat anda Berhasil menghapus secret PPPoE');
 			return redirect('pppoe/secret');
